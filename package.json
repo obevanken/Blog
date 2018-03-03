@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/obevanken/blog#readme",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "ejs": "^2.5.7",
