@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         verifyPass: async (pass) => {
           try{
             var result = await bcrypt.compare(pass, this.encrypt_password);
+            return result;
           } catch(err){
             console.log(err);
           }
