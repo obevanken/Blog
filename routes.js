@@ -1,22 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
-module.exports = function () {
+module.exports = function (passport) {
   router.get("/register", (req, res) => {
-    res.sendStatus(404);
+    res.render("register", {
+      messages: req.flash('message')
+    })
   })
 
-  router.post("/register", (req, res) => {
-    res.sendStatu(404);
-  })
+  router.post("/register", passport.authenticate('register', { successRedirect: '/auth',
+                                     failureRedirect: '/register',
+                                     failureFlash: true }));
 
   router.get("/auth", (req, res) => {
-    res.sendStatus(404);
+    res.render("auth", {
+      messages: req.flash('message')
+    });
   })
 
-  router.post("/auth", (req, res) => {
-    res.sendStatus(404);
-  })
+  router.post('/auth',passport.authenticate('auth', { successRedirect: '/',
+                                       failureRedirect: '/auth',
+                                       failureFlash: true }));
+
 
   router.get("/", (req, res) => {
     res.sendStatus("404");
