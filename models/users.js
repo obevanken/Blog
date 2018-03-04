@@ -23,13 +23,16 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-  users.prototype.verifyPass = function(pass) {
-    return bcrypt.compareSync(pass, this.encrypt_password);
+
+  users.prototype.verifyPass = function(pass){
+  return bcrypt.compareSync(pass, this.encrypt_password);
   };
+
   users.associate = function(models) {
     users.hasMany(models.articles, {
       foreignKey: "user_id"
     });
   };
+  
   return users;
 };
