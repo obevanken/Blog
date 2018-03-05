@@ -4,10 +4,10 @@ var app = express();
 var body_parser = require("body-parser");
 var db = require("./models");
 var flash = require("connect-flash");
-var expressSession = require('express-session');
-var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var expressSession = require('express-session');
+var cookieParser = require('cookie-parser');
 var routes = require('./routes')(passport);
 var auth = require("./passport/auth")(passport);
 var register = require("./passport/register")(passport);
@@ -23,16 +23,23 @@ app.use(expressSession({secret: 'mySecretKey',
     saveUninitialized :  true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', routes);
+app.use(express.static('public'));
+
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(async function(id, done) {
+  var result = await db.users.findOne({
+  where: {
+    id: id
+  }
+})
+done(null, result);
 });
 
+app.use('/', routes);
 var start = async () => {
   try{
     await db.sequelize.authenticate();

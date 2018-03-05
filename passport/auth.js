@@ -14,8 +14,8 @@ module.exports = function(passport) {
       try {
 
         var schema = joi.object().keys({
-          username: joi.string().alphanum().min(3).max(30).required(),
-          password: joi.string().min(4).max(10).required()
+          username: joi.string().alphanum().min(3).max(30),
+          password: joi.string().min(4).max(10)
         });
 
         var valid = await joi.validate({
@@ -41,9 +41,9 @@ module.exports = function(passport) {
           return done(null, false, req.flash('message', 'Incorrect password.'));
         }
 
-        return done(null, result, console.log(result.username));
+        return done(null, us, console.log(result.username));
 
-      } catch (err) {
+      } catch(err) {
         console.error(err);
         return done(null, false, req.flash('message', err.details[0].message))
       }

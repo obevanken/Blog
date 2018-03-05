@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var articles = require("./controllers/articles");
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -39,20 +40,25 @@ module.exports = function (passport) {
 
 
   router.get("/", isAuthenticated, (req, res) => {
-    res.sendStatus("404");
+    res.send("It's home")
   })
+
+
+  router.get("/post/new", isAuthenticated,isAuthenticated, (req, res) => {
+    res.render("newArticle",{
+      messages: req.flash('message')
+    });
+  })
+
+  router.post("/post/new", isAuthenticated, articles.create);
 
   router.get("/post/:id", isAuthenticated, (req, res) => {
     res.sendStatus(404);
   })
 
-  router.get("/post/new", isAuthenticated, (req, res) => {
-    res.sendStatus(404);
-  })
 
-  router.post("/post/new", isAuthenticated, (req, res) => {
-    res.sendStatus(404);
-  })
+
+
 
   router.get("/author/:id", isAuthenticated, (req, res) => {
     res.sendStatus(404);

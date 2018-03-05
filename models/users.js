@@ -3,7 +3,10 @@ var bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   var users = sequelize.define('users', {
-    username: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     encrypt_password: {
       type: DataTypes.STRING,
       allowNull: false
@@ -33,6 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "user_id"
     });
   };
-  
+
   return users;
 };
