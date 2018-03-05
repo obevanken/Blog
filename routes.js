@@ -17,6 +17,11 @@ var isAuth = function (req, res, next){
 
 module.exports = function (passport) {
 
+  router.post('/signout', function(req, res) {
+   req.logout();
+   res.redirect('/auth');
+ });
+
   router.get("/register", isAuth, (req, res) => {
     res.render("register", {
       messages: req.flash('message')
@@ -34,14 +39,12 @@ module.exports = function (passport) {
     });
   })
 
-  router.post('/auth',passport.authenticate('auth', { successRedirect: '/',
+  router.post('/auth',passport.authenticate('auth', { successRedirect: '/1',
                                        failureRedirect: '/auth',
                                        failureFlash: true }));
 
 
-  router.get("/", isAuthenticated, (req, res) => {
-    res.send("It's home")
-  })
+  router.get("/:page", isAuthenticated, articles.findAll)
 
 
   router.get("/post/new", isAuthenticated,isAuthenticated, (req, res) => {
@@ -50,15 +53,13 @@ module.exports = function (passport) {
     });
   })
 
-  router.post("/post/new", isAuthenticated, articles.create);
+  router.post("/post/new", isAuthenticated, articles.create)
 
-  router.get("/post/:id", isAuthenticated, (req, res) => {
-    res.sendStatus(404);
-  })
+  router.get("/post/:id", isAuthenticated, articles.findOne)
 
-
-
-
+router.get("/", isAuthenticated, (req,res) => {
+  res.redirect("/1");
+});
 
   router.get("/author/:id", isAuthenticated, (req, res) => {
     res.sendStatus(404);

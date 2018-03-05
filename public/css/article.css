@@ -1,0 +1,72 @@
+.bg-primary .user .but{
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: rgb(200, 186, 238);
+  height: 55px;
+}
+.bg-primary .user .but:hover{
+   background-color: black ;
+}
+
+
+.bg-primary .user .collapse a{
+  text-decoration: none;
+  color:white;
+  padding-left: 5px;
+}
+
+.bg-primary .user .collapsing a{
+  text-decoration: none;
+  color:white;
+  padding-left: 5px;
+}
+
+.bg-primary .user .collapse .del:hover{
+ background: none;
+ border: none;
+ color:rgb(161, 163, 30);
+}
+
+.bg-primary .user .collapse a:hover{
+ text-decoration: none;
+ color:rgb(161, 163, 30);
+ padding-left: 5px;
+}
+
+.container .commenter{
+  border:1px solid silver;
+  margin-bottom: 5px;
+}
+
+input{
+  background: none;
+  border: none ;
+  color:white;
+}
+
+.adm .delete{
+  text-decoration: none;
+  color:rgb(57, 51, 43);
+}
+
+.adm .redact{
+  text-decoration: none;
+  color:rgb(57, 51, 43);
+}
+
+
+.text{
+  border: 1px solid silver;
+}
+
+.container .comm{
+  resize: none;
+  height: 50px;
+  min-width: 70%;
+}
+
+.container .home{
+  text-decoration: none;
+  color:rgb(57, 51, 43);
+}

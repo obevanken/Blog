@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/articles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <div class="container-fluid">
+    <div class = "user">
+      <button type="button" class="but" data-toggle="collapse" data-target="#hide"><%=user.username%></button>
+      <div class = "collapse" id = "hide">
+      <a href="/post/new">Создать статью</a><br>
+      <a href="/user/<%=user.id%>">Показать статьи</a>
+      <form action="/signout" method="post">
+        <input type="submit" class = "del" name="logout" value="Выйти из сайта">
+      </form>
+      </div>
+  </div>
+  </nav>
+<% for (var i = 0; i < docs.length; i++){%>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 artic">
+        Автор:
+        <a href="/author/<%=docs[i].user.id%>">
+          <%=docs[i].user.username%>
+        </a>
+        <h3><%=docs[i].title%></h3>
+        <div>
+          <%=docs[i].text%>
+        </div>
+        <a href="/post/<%=docs[i].id%>">Перейти к статье</a>
+      </div>
+    </div>
+  </div>
+  <%}%>
+  <nav aria-label="Page navigation example">
+  <div class="container">
+    <div class="row justify-content-center">
+  <% if (pages > 0) { %>
+               <ul class="pagination">
+
+                   <% for(var i = 1; i <= Number(current) + 1; i++){ %>
+                     <% if (current == i){ %>
+                        <% if (i == 1){ %>
+                          <li class="page-item disabled"><a class="page-link" href="#"><%= i %></a>
+                          <li class="page-item disabled"><a class="page-link" href="<=% i %>"><%= i+1 %></a>
+                             <li class="page-item "><a class="page-link" href="/<%= next %>">Следущая</a></li>
+                          <% } else { %>
+                          <% if (i == pages){ %>
+                            <li class="page-item"><a class="page-link"  href="/<%= previous%>" >Предыдущая</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="<=% i %>"><%= i-1 %></a>
+                             <li class="page-item disabled"><a class="page-link" href="#"><%= i %></a>
+                            <% } else {%>
+                              <li class="page-item"><a class="page-link" href="/<%= previous%>">Предыдущая</a></li>
+                              <li class="page-item disabled"><a class="page-link" href="<=% i %>"><%= i-1 %></a>
+                               <li class="page-item disabled"><a class="page-link" href="#"><%= i %></a>
+                              <li class="page-item disabled"><a class="page-link" href="<=% i %>"><%= i+1 %></a>
+                                 <li class="page-item"><a class="page-link" href="/<%= next %>">Следущая</a></li>
+                            <% } %>
+                            <% } %>
+                       <% } %>
+                     <% } %>
+
+
+               </ul>
+           <% } %>
+           </div>
+           </div>
+         </nav>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+.bg-primary .user .but{
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: rgb(200, 186, 238);
+  height: 55px;
+}
+.bg-primary .user .but:hover{
+   background-color: black ;
+}
+
+
+.bg-primary .user .collapse a{
+  text-decoration: none;
+  color:white;
+  padding-left: 5px;
+}
+
+.bg-primary .user .collapsing a{
+  text-decoration: none;
+  color:white;
+  padding-left: 5px;
+}
+
+.bg-primary .user .collapse .del:hover{
+ background: none;
+ border: none;
+ color:rgb(161, 163, 30);
+}
+
+.bg-primary .user .collapse a:hover{
+ text-decoration: none;
+ color:rgb(161, 163, 30);
+ padding-left: 5px;
+}
+
+input{
+  background: none;
+  border: none ;
+  color:white;
+}
+
+a{
+  text-decoration: none;
+  color:white;
+  padding-left: 5px;
+}
+
+.row .artic{
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid silver;
+}
+
+.row .artic a{
+  text-decoration: none;
+  color: rgba(40, 42, 25, 0.85);
+}
+
+.row .artic a:hover{
+  text-decoration: none;
+  color: rgb(18, 19, 9);
+}
