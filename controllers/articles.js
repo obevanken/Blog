@@ -51,23 +51,21 @@ module.exports.findAll = async (req, res) => {
 
     var pages = Math.ceil(count / perPage);
 
-     for (var i = 0; i <= Number(current); i++) {
-       if (current == i) {
-         if (i == 1) {
-           var num = 1;
+       if (current == 1){
+         var num = 1
            res.render("home", {
-             page: i,
-             next_page: i + 1,
+             page: current,
+             next_page: Number(current) + 1,
              docs: result,
              flag: num,
              user: req.user
            })
          } else {
-           if( i == pages){
+           if( current == pages){
              var num = 2
              res.render("home",{
-               page: i,
-               previous: i - 1,
+               page: current,
+               previous: Number(current) - 1,
                docs: result,
                flag: num,
                user: req.user
@@ -75,19 +73,16 @@ module.exports.findAll = async (req, res) => {
            } else {
              var num = 3
              res.render("home",{
-               page: i,
-               previous: i - 1,
-               next_page: i + 1,
+               page: current,
+               previous: Number(current) - 1,
+               next_page: Number(current) + 1,
                docs: result,
                flag: num,
                user: req.user
              })
            }
          }
-       }
-     }
-
-  } catch (err) {
+       } catch (err) {
     console.error(err);
   }
 }
