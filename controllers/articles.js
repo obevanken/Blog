@@ -36,7 +36,8 @@ module.exports.create = async (req, res, done) => {
 module.exports.findAll = async (req, res) => {
   try {
     var perPage = 10;
-    var page = req.params.page || 1
+    var num = 0;
+    var current = req.params.page || 1
 
     var count = await db.articles.count();
 
@@ -44,18 +45,55 @@ module.exports.findAll = async (req, res) => {
       include: [{
         model: db.users
       }],
-      offset: ((perPage * page) - perPage),
+      offset: ((perPage * current) - perPage),
       limit: perPage
     });
 
-    await res.render("home", {
-      current: page,
-      pages: Math.ceil(count / perPage),
-      docs: result,
-      user: req.user,
-      next: Number(page) + 1,
-      previous: page - 1
-    })
+    var pages = Math.ceil(count / perPage);
+
+     for (var i = 1; i <= Number(current) + 1; i++) {
+       if (current == i) {
+         if (i == 1) {
+           var num = 1;
+           res.render("home", {
+             page: i,
+             next_page: i + 1,
+             docs: result,
+             flag: num,
+             user: req.user
+           })
+         } else {
+           if( i == pages){
+             var num = 2
+             res.render("home",{
+               page: i,
+               previous: i - 1,
+               docs: result,
+               flag: num,
+               user: req.user
+             })
+           } else {
+             var num = 3
+             res.render("home",{
+               page: i,
+               previous: i - 1,
+               next_page: i + 1,
+               docs: result,
+               flag: num,
+               user: req.user
+             })
+           }
+         }
+       }
+     }
+    // await res.render("home", {
+    //   current: page,
+    //   pages: Math.ceil(count / perPage),
+    //   docs: result,
+    //   user: req.user,
+    //   next: Number(page) + 1,
+    //   previous: page - 1
+    // })
   } catch (err) {
     console.error(err);
   }
