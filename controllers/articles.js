@@ -113,17 +113,23 @@ module.exports.findOne = async (req,res) => {
 
 module.exports.find_for_update = async (req, res) => {
   try {
+
     var result = await db.articles.findOne({
       where: {
         id: req.params.id
       }
     })
 
+
+    if(req.user.id == result.user_id || req.user.id == true){
     res.render("article_edit", {
       doc: result,
       messages: req.flash('message'),
       user: req.user
     })
+  } else {
+    await res.redirect("/");
+  }
 
   } catch (err) {
     console.log(err);
@@ -153,14 +159,25 @@ module.exports.edit = async (req, res) =>{
 module.exports.delete = async (req, res) => {
   try {
 
-    var del = await db.articles.destroy({
-      where: {
+    var result = await db.articles.findOne({
+      where:{
         id: req.params.id
       }
+    })
+
+  if(req.user.id == result.user_id || req.user.id == true){
+    var del = await db.articles.destroy({
+      where: {
+        id: result.id
+      }
     });
+    await res.redirect("/")
+  } else {
+    await res.redirect("/")
+  }
     console.log(del);
 
-    await res.redirect("/")
+
 
   } catch (err) {
     console.error(err);
