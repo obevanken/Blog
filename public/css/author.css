@@ -8,10 +8,7 @@
 .bg-primary .user .but:hover{
    background-color: black ;
 }
-.container .text a{
-  text-decoration: none;
-  color: rgba(40, 42, 25, 0.85);
-}
+
 
 .bg-primary .user .collapse a{
   text-decoration: none;
@@ -37,39 +34,24 @@
  padding-left: 5px;
 }
 
-.container .commenter{
-  border:1px solid silver;
-  margin-bottom: 5px;
-}
-
 input{
   background: none;
   border: none ;
   color:white;
 }
 
-.adm .delete{
-  text-decoration: none;
-  color:rgb(57, 51, 43);
-}
-
-.adm .redact{
-  text-decoration: none;
-  color:rgb(57, 51, 43);
-}
-
-
-.text{
+.row .artic{
+  margin-top: 10px;
+  width: 100%;
   border: 1px solid silver;
 }
 
-.container .comm{
-  resize: none;
-  height: 50px;
-  min-width: 70%;
+.row .artic a{
+  text-decoration: none;
+  color: rgba(40, 42, 25, 0.85);
 }
 
-.container .home{
+.row .artic a:hover{
   text-decoration: none;
-  color:rgb(57, 51, 43);
+  color: rgb(18, 19, 9);
 }

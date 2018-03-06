@@ -16,7 +16,7 @@
         <button type="button" class="but" data-toggle="collapse" data-target="#hide"><%=user.username%></button>
         <div class = "collapse" id = "hide">
         <a href="/post/new">Создать статью</a><br>
-        <a href="/user/<%=user.id%>">Показать статьи</a>
+        <a href="/author/<%=user.id%>">Показать статьи</a>
         <form action="/signout" method="post">
           <input type="submit" class = "del" name="logout" value="Выйти из сайта">
         </form>
@@ -28,7 +28,7 @@
   <a class = "home" href="/">На главную</a>
   <h1><%=doc.title%></h1>
   <div class = "text">
-    Автор: <%=doc.user.username%>
+    Автор: <a href = "/author/<%=doc.user.id%>"><%=doc.user.username%></a>
     <br>
     <%=doc.text%>
   </div>

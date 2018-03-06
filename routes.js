@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var articles = require("./controllers/articles");
+var users = require("./controllers/users");
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -69,9 +70,7 @@ router.get("/", isAuthenticated, (req,res) => {
 
 
 
-  router.get("/author/:id", isAuthenticated, (req, res) => {
-    res.sendStatus(404);
-  })
+  router.get("/author/:id", isAuthenticated, users.find)
 
     return router;
 }

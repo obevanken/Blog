@@ -1,19 +1,23 @@
-<html lang<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/css/new_art.css">
+  <link rel="stylesheet" href="/css/author.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>Document</title>
 </head>
+
 <body>
+
   <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
       <div class = "user">
         <button type="button" class="but" data-toggle="collapse" data-target="#hide"><%=user.username%></button>
         <div class = "collapse" id = "hide">
+        <a href="/post/new">Создать статью</a><br>
         <a href="/author/<%=user.id%>">Показать статьи</a>
         <form action="/signout" method="post">
           <input type="submit" class = "del" name="logout" value="Выйти из сайта">
@@ -22,35 +26,37 @@
     </div>
     </nav>
 
-<% if (messages) { %>
-  <div class="row justify-content-center">
-    <div class="col-md-4 mes">
-      <p>
-        <%= messages %>
-      </p>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-10 artic">
+          <h6>Username: <%=doc.username%></h6>
+          <h6>Email: <%=doc.email%></h6>
+        </div>
+      </div>
     </div>
-  </div>
-  <% } %>
 
-  <div class="container">
-    <div class="row">
-  <form action="" method="post">
-    <div class="form-group">
-    <label for="title">Заголовок</label>
-    <input class = "form-control" type="text" name="title" value ="<%=doc.title%>">
-  </div>
-    <div class="form-group">
-    <label for="text">Текст</label>
-    <textarea class = "form-control" rows="8" cols="80" name= "text"><%=doc.text%></textarea>
-    </div>
-      <button type="submit" class="btn btn-primary">Создать</button>
-  </form>
-  </div>
-  </div>
+    <% for (var i = 0; i < docs.length; i++){%>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 artic">
+            Автор:
+            <a href="/author/<%=doc.id%>">
+              <%=doc.username%>
+            </a>
+            <h3><%=docs[i].title%></h3>
+            <div>
+              <%=docs[i].text%>
+            </div>
+            <a href="/post/<%=docs[i].id%>">Перейти к статье</a>
+          </div>
+        </div>
+      </div>
+      <%}%>
 
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
+
 </html>
