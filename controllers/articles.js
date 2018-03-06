@@ -35,6 +35,7 @@ module.exports.create = async (req, res, done) => {
 
 module.exports.findAll = async (req, res) => {
   try {
+    
     var perPage = 10;
     var num = 0;
     var current = req.params.page || 1
@@ -53,35 +54,22 @@ module.exports.findAll = async (req, res) => {
 
        if (current == 1){
          var num = 1
-           res.render("home", {
-             page: current,
-             next_page: Number(current) + 1,
-             docs: result,
-             flag: num,
-             user: req.user
-           })
          } else {
            if( current == pages){
              var num = 2
-             res.render("home",{
-               page: current,
-               previous: Number(current) - 1,
-               docs: result,
-               flag: num,
-               user: req.user
-             })
            } else {
              var num = 3
-             res.render("home",{
-               page: current,
-               previous: Number(current) - 1,
-               next_page: Number(current) + 1,
-               docs: result,
-               flag: num,
-               user: req.user
-             })
            }
          }
+
+         res.render("home",{
+           page: current,
+           previous: Number(current) - 1,
+           next_page: Number(current) + 1,
+           docs: result,
+           flag: num,
+           user: req.user
+         })
        } catch (err) {
     console.error(err);
   }
