@@ -51,7 +51,7 @@ module.exports.findAll = async (req, res) => {
 
     var pages = Math.ceil(count / perPage);
 
-     for (var i = 1; i <= Number(current) + 1; i++) {
+     for (var i = 0; i <= Number(current); i++) {
        if (current == i) {
          if (i == 1) {
            var num = 1;
@@ -86,7 +86,7 @@ module.exports.findAll = async (req, res) => {
          }
        }
      }
-  
+
   } catch (err) {
     console.error(err);
   }
@@ -94,6 +94,16 @@ module.exports.findAll = async (req, res) => {
 
 module.exports.findOne = async (req,res) => {
   try{
+    var schema = joi.object().keys({
+      title: joi.string().min(5).max(30),
+      text: joi.string().min(20).max(150)
+    });
+
+    var valid = await joi.validate({
+      title: req.body.title,
+      text: req.body.text,
+    }, schema);
+
     var result = await db.articles.findOne({
         include: [{
           model: db.users
@@ -117,3 +127,36 @@ module.exports.findOne = async (req,res) => {
     console.error(err);
   }
 }
+
+// module.exports.find_for_update = async (req, res) => {
+//   try{
+//   var result = await db.articles.findOne({
+//     where:{
+//       id: req.params.id
+//     }
+//   })
+//   res.render("article_edit", {
+//     doc: result
+//   })
+// }catch(err){
+//   console.log(err);
+// }
+//
+// }
+//
+// module.exports.edit = async (req, res) =>{
+//   try{
+//     var result = await db.articles.update({
+//         where: {
+//           id: req.params.id
+//         },
+//         title: req.body.title,
+//         text: req.body.text
+//       })
+//       console.log(result);
+//   } catch(err){
+//     console.log(err);
+//     await done(null, false, req.flash('message', err.details[0].message));
+//     await res.redirect("/post/" + req.params.id + "/edit");
+//   }
+// }

@@ -26,8 +26,7 @@ module.exports = function (passport) {
     res.render("register", {
       messages: req.flash('message')
     })
-
-  })
+  });
 
   router.post("/register", passport.authenticate('register', { successRedirect: '/auth',
                                      failureRedirect: '/register',
@@ -37,29 +36,40 @@ module.exports = function (passport) {
     res.render("auth", {
       messages: req.flash('message')
     });
-  })
+  });
 
   router.post('/auth',passport.authenticate('auth', { successRedirect: '/1',
                                        failureRedirect: '/auth',
                                        failureFlash: true }));
 
 
-  router.get("/:page", isAuthenticated, articles.findAll)
+  router.get("/:page", isAuthenticated, articles.findAll);
 
+  //   router.get("/post/id:/edit", isAuthenticated, articles.find_for_update )
+  //
+  // router.post("/post/id:/edit", isAuthenticated, articles.edit)
 
-  router.get("/post/new", isAuthenticated,isAuthenticated, (req, res) => {
+  router.get("/post/new", isAuthenticated, (req, res) => {
     res.render("newArticle",{
       messages: req.flash('message')
     });
-  })
+  });
 
-  router.post("/post/new", isAuthenticated, articles.create)
+  router.post("/post/new", isAuthenticated, articles.create);
 
-  router.get("/post/:id", isAuthenticated, articles.findOne)
+  router.get("/post/:id", isAuthenticated, articles.findOne);
+
+
+
+
 
 router.get("/", isAuthenticated, (req,res) => {
   res.redirect("/1");
 });
+
+
+
+
 
   router.get("/author/:id", isAuthenticated, (req, res) => {
     res.sendStatus(404);
