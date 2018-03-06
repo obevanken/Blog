@@ -45,29 +45,27 @@ module.exports = function (passport) {
 
   router.get("/:page", isAuthenticated, articles.findAll);
 
-  //   router.get("/post/id:/edit", isAuthenticated, articles.find_for_update )
-  //
-  // router.post("/post/id:/edit", isAuthenticated, articles.edit)
+
 
   router.get("/post/new", isAuthenticated, (req, res) => {
     res.render("newArticle",{
-      messages: req.flash('message')
+      messages: req.flash('message'),
+      user: req.user
     });
   });
 
   router.post("/post/new", isAuthenticated, articles.create);
 
+  router.get("/post/:id/edit", isAuthenticated, articles.find_for_update);
   router.get("/post/:id", isAuthenticated, articles.findOne);
-
-
+  router.post("/post/:id/edit", isAuthenticated, articles.edit);
+  router.get("/post/:id/delete", isAuthenticated, articles.delete);
 
 
 
 router.get("/", isAuthenticated, (req,res) => {
   res.redirect("/1");
 });
-
-
 
 
 

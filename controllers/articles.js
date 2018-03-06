@@ -35,7 +35,7 @@ module.exports.create = async (req, res, done) => {
 
 module.exports.findAll = async (req, res) => {
   try {
-    
+
     var perPage = 10;
     var num = 0;
     var current = req.params.page || 1
@@ -111,35 +111,58 @@ module.exports.findOne = async (req,res) => {
   }
 }
 
-// module.exports.find_for_update = async (req, res) => {
-//   try{
-//   var result = await db.articles.findOne({
-//     where:{
-//       id: req.params.id
-//     }
-//   })
-//   res.render("article_edit", {
-//     doc: result
-//   })
-// }catch(err){
-//   console.log(err);
-// }
-//
-// }
-//
-// module.exports.edit = async (req, res) =>{
-//   try{
-//     var result = await db.articles.update({
-//         where: {
-//           id: req.params.id
-//         },
-//         title: req.body.title,
-//         text: req.body.text
-//       })
-//       console.log(result);
-//   } catch(err){
-//     console.log(err);
-//     await done(null, false, req.flash('message', err.details[0].message));
-//     await res.redirect("/post/" + req.params.id + "/edit");
-//   }
-// }
+module.exports.find_for_update = async (req, res) => {
+  try {
+    var result = await db.articles.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+
+    res.render("article_edit", {
+      doc: result,
+      messages: req.flash('message'),
+      user: req.user
+    })
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports.edit = async (req, res) =>{
+  try{
+    var result = await db.articles.update({
+        title: req.body.title,
+        text: req.body.text
+      },{
+        where: {
+          id: req.params.id
+        }
+      })
+
+    await res.redirect("/post/" + req.params.id );
+
+  } catch(err){
+    console.log(err);
+    await done(null, false, req.flash('message', err.details[0].message));
+    await res.redirect("/post/" + req.params.id + "/edit");
+  }
+}
+
+module.exports.delete = async (req, res) => {
+  try {
+
+    var del = await db.articles.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    console.log(del);
+
+    await res.redirect("/")
+
+  } catch (err) {
+    console.error(err);
+  }
+}
