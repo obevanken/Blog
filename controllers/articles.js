@@ -86,14 +86,7 @@ module.exports.findAll = async (req, res) => {
          }
        }
      }
-    // await res.render("home", {
-    //   current: page,
-    //   pages: Math.ceil(count / perPage),
-    //   docs: result,
-    //   user: req.user,
-    //   next: Number(page) + 1,
-    //   previous: page - 1
-    // })
+  
   } catch (err) {
     console.error(err);
   }
