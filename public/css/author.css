@@ -9,6 +9,13 @@
    background-color: black ;
 }
 
+.bg-primary .container .ml-auto .nav-item a{
+  color: white;
+}
+
+.bg-primary .navbar-brand{
+  color: white;
+}
 
 .bg-primary .user .collapse a{
   text-decoration: none;
@@ -16,28 +23,15 @@
   padding-left: 5px;
 }
 
-.bg-primary .user .collapsing a{
-  text-decoration: none;
-  color:white;
-  padding-left: 5px;
-}
-
-.bg-primary .user .collapse .del:hover{
- background: none;
- border: none;
- color:rgb(161, 163, 30);
-}
-
-.bg-primary .user .collapse a:hover{
- text-decoration: none;
- color:rgb(161, 163, 30);
- padding-left: 5px;
-}
-
 input{
   background: none;
   border: none ;
   color:white;
+}
+
+.container .home{
+  text-decoration: none;
+  color:rgb(57, 51, 43);
 }
 
 .row .artic{

@@ -12,21 +12,19 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg bg-primary">
-    <a class="navbar-brand" href="#">Blog</a>
-  <div class="container">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/author/<%=user.id%>">Показать статьи</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/post/new">Создать статью</a>
-          </li>
-        </ul>
-        <form class="float-right"action="/signout" method="post">
-         <input type="submit" class = "del" name="logout" value="Выйти из сайта">
-         </form>
-  </nav>
+
+    <nav class="navbar navbar-expand-lg bg-primary">
+      <a class="navbar-brand" href="#">Blog</a>
+    <div class="container">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/auth">Вход</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Регистрация</a>
+            </li>
+          </ul>
+    </nav>
 
     <div class="container">
       <a class = "home" href="/">На главную</a>

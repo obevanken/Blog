@@ -82,20 +82,35 @@ module.exports.findAll = async (req, res) => {
          }
        }
      }
-         await res.render("home",{
+     if(req.isAuthenticated()){
+
+       await res.render("home",{
+         page: current,
+         previous: Number(current) - 1,
+         next_page: Number(current) + 1,
+         docs: result,
+         flag: num,
+         user: req.user
+       })
+
+     }else{
+
+         await res.render("home2",{
            page: current,
            previous: Number(current) - 1,
            next_page: Number(current) + 1,
            docs: result,
            flag: num,
-           user: req.user
          })
+       }
+
        } catch (err) {
     console.error(err);
   }
 }
 
-module.exports.findOne = async (req,res) => {
+module.exports.findOne = async (req,res, done) => {
+  
   try{
     var schema = joi.object().keys({
       title: joi.string().min(5).max(150),
@@ -108,28 +123,41 @@ module.exports.findOne = async (req,res) => {
     }, schema);
 
     var result = await db.articles.findOne({
-        include: [{
-          model: db.users
-        }],
-        where:{
-          id: req.params.id
-        }
-      })
-    // if(req.user.id == result.user_id || req.user.admin == true){
-    //   res.render("adm_article", {
-    //     doc: result,
-    //     user: req.user
-    //   });
-    // } else{
-      res.render("adm_article", {
-        doc: result,
-        // user: req.user,
-      })
-    // }
-  } catch(err){
-    console.error(err);
-  }
-}
+      include: [{
+        model: db.users
+      }],
+      where: {
+        id: req.params.id
+      }
+    })
+
+    if (!req.isAuthenticated()) {
+
+      await res.render("article2", {
+        doc: result
+      });
+
+    } else {
+
+      if (req.user.id == result.user_id || req.user.admin == true) {
+        await res.render("adm_article", {
+          doc: result,
+          user: req.user
+        });
+
+      } else {
+
+        await res.render("article", {
+          doc: result,
+          user: req.user,
+        })
+      }
+
+    }
+    } catch (err) {
+      console.error(err);
+    }
+    }
 
 module.exports.find_for_update = async (req, res) => {
   try {
@@ -140,17 +168,26 @@ module.exports.find_for_update = async (req, res) => {
       }
     })
 
+if (!req.isAuthenticated()) {
 
-    if(req.user.id == result.user_id || req.user.id == true){
+  await res.redirect("/")
+
+} else {
+
+  if (req.user.id == result.user_id || req.user.id == true) {
+
     res.render("article_edit", {
       doc: result,
       messages: req.flash('message'),
       user: req.user
     })
-  } else {
-    await res.redirect("/");
-  }
 
+  } else {
+
+    await res.redirect("/");
+
+  }
+}
   } catch (err) {
     console.log(err);
   }

@@ -3,11 +3,11 @@ var router = express.Router();
 var articles = require("./controllers/articles");
 var users = require("./controllers/users");
 
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-  res.redirect('/auth');
-}
+// var isAuthenticated = function (req, res, next) {
+//   if (req.isAuthenticated())
+//     return next();
+//   res.redirect('/auth');
+// }
 
 var isAuth = function (req, res, next){
   if (req.isAuthenticated()){
@@ -20,7 +20,7 @@ module.exports = function (passport) {
 
   router.post('/signout', function(req, res) {
    req.logout();
-   res.redirect('/auth');
+   res.redirect('/');
  });
 
   router.get("/register", isAuth, (req, res) => {
@@ -48,19 +48,23 @@ module.exports = function (passport) {
 
 
 
-  router.get("/post/new", isAuthenticated, (req, res) => {
-    res.render("newArticle",{
-      messages: req.flash('message'),
-      user: req.user
-    });
+  router.get("/post/new", (req, res) => {
+    if(req.isAuthenticated()){
+      res.render("newArticle",{
+        messages: req.flash('message'),
+        user: req.user
+      });
+    } else {
+      res.redirect("/")
+    }
   });
 
-  router.post("/post/new", isAuthenticated, articles.create);
+  router.post("/post/new", articles.create);
 
   router.get("/post/:id", articles.findOne);
-  router.get("/post/:id/edit", isAuthenticated, articles.find_for_update);
-  router.post("/post/:id/edit", isAuthenticated, articles.edit);
-  router.get("/post/:id/delete", isAuthenticated, articles.delete);
+  router.get("/post/:id/edit", articles.find_for_update);
+  router.post("/post/:id/edit", articles.edit);
+  router.get("/post/:id/delete", articles.delete);
 
 
 
