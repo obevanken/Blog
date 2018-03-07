@@ -110,7 +110,7 @@ module.exports.findAll = async (req, res) => {
 }
 
 module.exports.findOne = async (req,res, done) => {
-  
+
   try{
     var schema = joi.object().keys({
       title: joi.string().min(5).max(150),
@@ -208,9 +208,11 @@ module.exports.edit = async (req, res) =>{
       allowedTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'i', 'img', 'blockquote', 'pre', 'a'],
       allowedAttributes:{
         a: ['href'],
-        img: ['alt', 'src']
+        img: ['alt', 'src'],
       }
     });
+
+    console.log(clean_text);
 
     var result = await db.articles.update({
         title: clean_title,

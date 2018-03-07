@@ -3,12 +3,6 @@ var router = express.Router();
 var articles = require("./controllers/articles");
 var users = require("./controllers/users");
 
-// var isAuthenticated = function (req, res, next) {
-//   if (req.isAuthenticated())
-//     return next();
-//   res.redirect('/auth');
-// }
-
 var isAuth = function (req, res, next){
   if (req.isAuthenticated()){
     res.redirect('/');

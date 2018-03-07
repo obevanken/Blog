@@ -34,9 +34,9 @@
         <a href="/author/<%=docs[i].user.id%>">
           <%=docs[i].user.username%>
         </a>
-        <h3><%=docs[i].title%></h3>
+        <h3><%-docs[i].title%></h3>
         <div class = "ret">
-          <%=docs[i].text%>
+          <%-docs[i].text%>
         </div>
         <a href="/post/<%=docs[i].id%>">Перейти к статье</a>
       </div>

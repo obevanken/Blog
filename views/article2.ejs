@@ -25,11 +25,11 @@
 
   <div class="container">
   <a class = "home" href="/">На главную</a>
-  <h1><%=doc.title%></h1>
+  <h1><%-doc.title%></h1>
   <div class = "text">
     Автор: <a href = "/author/<%=doc.user.id%>"><%=doc.user.username%></a>
     <br>
-    <%=doc.text%>
+    <%-doc.text%>
   </div>
 </div>
 
