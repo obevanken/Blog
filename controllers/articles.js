@@ -6,8 +6,8 @@ module.exports.create = async (req, res, done) => {
   try{
 
     var schema = joi.object().keys({
-      title: joi.string().min(5).max(30),
-      text: joi.string().min(20).max(150)
+      title: joi.string().min(5).max(150),
+      text: joi.string().min(10).max(1000)
     });
 
     var valid = await joi.validate({
@@ -52,6 +52,9 @@ module.exports.findAll = async (req, res) => {
 
     var pages = Math.ceil(count / perPage);
 
+    if(current == 1 && (current > pages || current == pages)){
+      var num = 4
+    } else{
        if (current == 1){
          var num = 1
          } else {
@@ -61,7 +64,7 @@ module.exports.findAll = async (req, res) => {
              var num = 3
            }
          }
-
+       }
          res.render("home",{
            page: current,
            previous: Number(current) - 1,
@@ -78,8 +81,8 @@ module.exports.findAll = async (req, res) => {
 module.exports.findOne = async (req,res) => {
   try{
     var schema = joi.object().keys({
-      title: joi.string().min(5).max(30),
-      text: joi.string().min(20).max(150)
+      title: joi.string().min(5).max(150),
+      text: joi.string().min(10).max(1000)
     });
 
     var valid = await joi.validate({
