@@ -44,7 +44,7 @@ module.exports = function (passport) {
                                        failureFlash: true }));
 
 
-  router.get("/:page", articles.findAll);
+  router.get("/:page", isAuthenticated, articles.findAll);
 
 
 
@@ -70,7 +70,7 @@ router.get("/", isAuthenticated, (req,res) => {
 
 
 
-  router.get("/author/:id", users.find)
+  router.get("/author/:id", isAuthenticated, users.find)
 
     return router;
 }
