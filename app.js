@@ -45,7 +45,7 @@ var start = async () => {
     await db.sequelize.authenticate();
     await console.log("Сервак запущен");
     await db.sequelize.sync();
-    await app.listen(3000);
+    await app.listen(5000);
   } catch(err) {
     console.error(err);
   }
