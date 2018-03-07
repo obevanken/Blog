@@ -16,6 +16,11 @@
   padding-left: 5px;
 }
 
+.container .artic .ret{
+  white-space: normal;
+  overflow-x: hidden;
+}
+
 .bg-primary .user .collapsing a{
   text-decoration: none;
   color:white;
