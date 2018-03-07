@@ -52,6 +52,10 @@ module.exports.findAll = async (req, res) => {
 
     var pages = Math.ceil(count / perPage);
 
+    if(current > pages && current != 1){
+    await res.redirect("/")
+  } else {
+
     if(current == 1 && (current > pages || current == pages)){
       var num = 4
     } else{
@@ -65,7 +69,8 @@ module.exports.findAll = async (req, res) => {
            }
          }
        }
-         res.render("home",{
+     }
+         await res.render("home",{
            page: current,
            previous: Number(current) - 1,
            next_page: Number(current) + 1,
