@@ -44,7 +44,7 @@ module.exports = function (passport) {
                                        failureFlash: true }));
 
 
-  router.get("/:page", isAuthenticated, articles.findAll);
+  router.get("/:page", articles.findAll);
 
 
 
@@ -57,8 +57,8 @@ module.exports = function (passport) {
 
   router.post("/post/new", isAuthenticated, articles.create);
 
-  router.get("/post/:id/edit", isAuthenticated, articles.find_for_update);
   router.get("/post/:id", isAuthenticated, articles.findOne);
+  router.get("/post/:id/edit", isAuthenticated, articles.find_for_update);
   router.post("/post/:id/edit", isAuthenticated, articles.edit);
   router.get("/post/:id/delete", isAuthenticated, articles.delete);
 
@@ -70,7 +70,7 @@ router.get("/", isAuthenticated, (req,res) => {
 
 
 
-  router.get("/author/:id", isAuthenticated, users.find)
+  router.get("/author/:id", users.find)
 
     return router;
 }

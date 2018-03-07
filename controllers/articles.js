@@ -15,8 +15,20 @@ module.exports.create = async (req, res, done) => {
       text: req.body.text,
     }, schema);
 
-    var clean_title = await sanitizeHtml(req.body.title);
-    var clean_text = await sanitizeHtml(req.body.text);
+    var clean_title = await sanitizeHtml(req.body.title, {
+      allowedTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'i', 'img', 'blockquote', 'pre', 'a'],
+      allowedAttributes:{
+        a: ['href'],
+        img: ['alt', 'src']
+      }
+    });
+    var clean_text = await sanitizeHtml(req.body.text, {
+      allowedTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'i', 'img', 'blockquote', 'pre', 'a'],
+      allowedAttributes:{
+        a: ['href'],
+        img: ['alt', 'src']
+      }
+    });
 
     article = {
       title: clean_title,
@@ -146,9 +158,26 @@ module.exports.find_for_update = async (req, res) => {
 
 module.exports.edit = async (req, res) =>{
   try{
+
+    var clean_title = await sanitizeHtml(req.body.title, {
+      allowedTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'i', 'img', 'blockquote', 'pre', 'a'],
+      allowedAttributes:{
+        a: ['href'],
+        img: ['alt', 'src']
+      }
+    });
+
+    var clean_text = await sanitizeHtml(req.body.text, {
+      allowedTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'b', 'i', 'img', 'blockquote', 'pre', 'a'],
+      allowedAttributes:{
+        a: ['href'],
+        img: ['alt', 'src']
+      }
+    });
+
     var result = await db.articles.update({
-        title: req.body.title,
-        text: req.body.text
+        title: clean_title,
+        text: clean_text
       },{
         where: {
           id: req.params.id
