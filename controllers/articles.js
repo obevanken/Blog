@@ -115,17 +115,17 @@ module.exports.findOne = async (req,res) => {
           id: req.params.id
         }
       })
-    if(req.user.id == result.user_id || req.user.admin == true){
+    // if(req.user.id == result.user_id || req.user.admin == true){
+    //   res.render("adm_article", {
+    //     doc: result,
+    //     user: req.user
+    //   });
+    // } else{
       res.render("adm_article", {
         doc: result,
-        user: req.user
-      });
-    } else{
-      res.render("article", {
-        doc: result,
-        user: req.user,
+        // user: req.user,
       })
-    }
+    // }
   } catch(err){
     console.error(err);
   }
