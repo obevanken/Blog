@@ -6,7 +6,7 @@ var db = require("./models");
 var flash = require("connect-flash");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var expressSession = require('express-session');
+var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
 var routes = require('./routes')(passport);
 var auth = require("./passport/auth")(passport);
@@ -18,7 +18,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(flash());
 app.use(cookieParser());
-app.use(expressSession({secret: 'mySecretKey',
+app.use(cookieSession({secret: 'mySecretKey',
     resave :  true ,
     saveUninitialized :  true }));
 app.use(passport.initialize());
